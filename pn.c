@@ -1,8 +1,17 @@
-// check for perfect numbers
+// perfect numbers finder
+// https://github.com/roda37/perfect_number
 
 #include <stdio.h>
 #include <gmp.h>
 #include <math.h>
+
+void save(mpz_t num) {
+    char buffer[100000];
+    mpz_get_str(buffer, 10, num); // Convert num to a string
+    FILE *file = fopen("the_list", "a");
+    fprintf(file, "%s\n", buffer);
+    fclose(file);
+}
 
 int prime(mpz_t n) {
     mpz_t i, sqrt_n;
@@ -49,8 +58,9 @@ int main() {
 			mpz_init(burn);
 			mpz_mul(burn, sum, num);
 
-			mpz_out_str(stdout, 10, burn);
-			putchar('\n');
+			//mpz_out_str(stdout, 10, burn);
+			//putchar('\n');
+			save(burn);
 
 			mpz_clear(burn);
 		}
